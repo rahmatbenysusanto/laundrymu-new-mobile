@@ -1,0 +1,127 @@
+.home-background-blue {
+    background: #00A3FF;
+    height: 150px;
+}
+
+.title-page {
+    color: #262626;
+    font-family: Gantari, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.34px;
+}
+
+.home-heading {
+    font-family: "Gantari", sans-serif;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.084px;
+    margin-bottom: 8px;
+}
+
+.home-heading-second {
+    color: #EDEDED;
+    font-family: Gantari, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.084px;
+    margin-bottom: 0;
+}
+
+.btn-white {
+    border-radius: 16px;
+    background: #FFF;
+    padding: 4px;
+    display: flex;
+    width: 83px;
+    justify-content: center;
+    align-items: center;
+    color: #00A3FF;
+    text-align: center;
+    font-family: Gantari, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.084px;
+    margin-left: 4px;
+}
+
+.big-logo {
+    right: 0;
+}
+
+.ringkasan {
+    margin-top: -25px !important;
+}
+
+.title-ringkasan {
+    color: rgba(67, 67, 67, 0.96);
+    font-family: Gantari, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.176px;
+    padding-bottom: 16px;
+}
+
+.card {
+    padding: 16px;
+    border: none;
+}
+
+.card-ringkasan {
+    border-radius: 6px;
+    border: 1px solid #EDEDED;
+    padding: 16px 8px;
+}
+
+.card-ringkasan-title {
+    color: #616161;
+    font-family: Gantari, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    margin-bottom: 4px;
+}
+
+.card-ringkasan-jumlah {
+    color: rgba(67, 67, 67, 0.96);
+    font-family: Gantari, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+    letter-spacing: -0.34px;
+    margin-bottom: 4px;
+}
+
+.form-label {
+    color: #262626!important;
+    font-family: Gantari, sans-serif!important;
+    font-size: 14px!important;
+    font-style: normal!important;
+    font-weight: 400!important;
+    line-height: 20px!important;
+    letter-spacing: -0.084px!important;
+}
+
+.text-bold-blue {
+    color: #00A3FF;
+    text-align: center;
+    font-family: Gantari, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: -0.34px;
+}
