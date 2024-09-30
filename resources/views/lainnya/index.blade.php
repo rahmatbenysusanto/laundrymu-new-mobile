@@ -67,7 +67,7 @@
                         <div class="card" style="padding: 16px; margin-top: 16px; border: none">
                             <p class="title-menu">Outlet</p>
                             <div class="list-menu">
-                                <a href="http://localhost:8001/outlet" style="text-decoration: none">
+                                <a href="{{ url('outlet') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/histori-pembayaran-outlet" style="text-decoration: none">
+                                <a href="{{ url('histori-pembayaran-outlet') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center">
                                         <div>
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,7 @@
                         <div class="card" style="padding: 16px; margin-top: 16px; border: none">
                             <p class="title-menu">Menu Laundry</p>
                             <div class="list-menu">
-                                <a href="http://localhost:8001/pelanggan" style="text-decoration: none">
+                                <a href="{{ url('pelanggan') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -121,7 +121,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/layanan" style="text-decoration: none">
+                                <a href="{{ url('layanan') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16" fill="none">
@@ -134,7 +134,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/pembayaran" style="text-decoration: none">
+                                <a href="{{ url('pembayaran') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -146,7 +146,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/diskon" style="text-decoration: none">
+                                <a href="{{ url('diskon') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -160,7 +160,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/parfum" style="text-decoration: none">
+                                <a href="{{ url('parfum') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/parfum" style="text-decoration: none">
+                                <a href="{{ url('parfum') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -311,7 +311,7 @@
                         <div class="card" style="padding: 16px; margin-top: 16px; border: none">
                             <p class="title-menu">Pertanyaan</p>
                             <div class="list-menu">
-                                <a href="http://localhost:8001/chat" style="text-decoration: none">
+                                <a href="{{ url('chat') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
