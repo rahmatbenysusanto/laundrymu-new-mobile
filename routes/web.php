@@ -11,6 +11,7 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\ParfumController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\AuthMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -136,5 +137,11 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::get('/get-kecamatan', 'getKecamatan')->name('getKecamatan');
         Route::get('/get-kelurahan', 'getKelurahan')->name('getKelurahan');
         Route::get('/get-kode-pos', 'getKodePos')->name('getKodePos');
+    });
+
+    Route::controller(PengirimanController::class)->group(function () {
+        Route::get('/pengiriman', 'index')->name('pengiriman');
+        Route::get('/pengiriman-create', 'create')->name('pengirimanCreate');
+        Route::post('/pengiriman', 'pengirimanProses')->name('pengirimanProses');
     });
 });
