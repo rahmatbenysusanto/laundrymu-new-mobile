@@ -26,11 +26,12 @@ class TransaksiController extends Controller
 
     public function detail($orderNumber): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $dataTransaksi = $this->GET('api/transaksi/'.$orderNumber, []);
-        if (isset($dataTransaksi) && $dataTransaksi->status && $dataTransaksi->data->transaksi != null) {
-            $transaksi = $dataTransaksi->data->transaksi;
-            $detail = $dataTransaksi->data->detail;
-            $histori = $dataTransaksi->data->transaksi->histori_status_transaksi;
+        $dataTransaksi = $this->GET('api/transaksi/detail?order-number='.$orderNumber, []);
+
+        if (isset($dataTransaksi) && $dataTransaksi->status) {
+            $transaksi = $dataTransaksi->data;
+            $detail = $dataTransaksi->data->transaksi_detail;
+            $histori = $dataTransaksi->data->transaksi_detail;
             $title = "list transaksi";
             return view('transaksi.detail', compact('title', 'transaksi', 'detail', 'histori'));
         } else {
@@ -51,6 +52,7 @@ class TransaksiController extends Controller
         } else {
             return response()->json([
                 'status'    => false,
+                'message'   => $prosesTransaksi->message ?? 'error',
             ]);
         }
     }
@@ -165,13 +167,13 @@ class TransaksiController extends Controller
 
     public function detailStatusTransaksi($order_number)
     {
-        $dataTransaksi = $this->GET('api/transaksi/'.$order_number, []);
-        if (isset($dataTransaksi) && $dataTransaksi->status && $dataTransaksi->data->transaksi != null) {
-            $transaksi = $dataTransaksi->data->transaksi;
-            $detail = $dataTransaksi->data->detail;
-            $histori = $dataTransaksi->data->transaksi->histori_status_transaksi;
+        $dataTransaksi = $this->GET('api/transaksi/history?order-number='.$order_number, []);
 
-            return view('transaksi.detail_status', compact('transaksi', 'detail', 'histori'));
+        if (isset($dataTransaksi) && $dataTransaksi->status) {
+            $transaksi = $dataTransaksi->data;
+            $histori = $dataTransaksi->data->transaksi_history;
+
+            return view('transaksi.detail_status', compact('transaksi', 'histori'));
         } else {
             return back();
         }

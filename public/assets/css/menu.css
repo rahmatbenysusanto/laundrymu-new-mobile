@@ -12,6 +12,15 @@
     border-top: 1px solid #ebebeb;
 }
 
+.menu-title {
+    color: #616161;
+    font-family: Gantari, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
 .footer-nav {
     background-color: #ffffff;
     width: 100%;
@@ -54,16 +63,16 @@
     margin-top: 0.25rem;
 }
 .footer-nav ul li a:hover, .footer-nav ul li a:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav ul li a:hover span, .footer-nav ul li a:focus span {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav ul li.active a {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav ul li.active a span {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav.footer-style-two li.active a {
     position: relative;
@@ -79,7 +88,7 @@
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    background-color: rgba(1, 52, 212, 0.3);
+    background-color: #27BCCD;
     margin: -25px auto 0;
     border-radius: 50%;
     color: #ffffff;
@@ -94,7 +103,7 @@
     top: 10%;
     right: 10%;
     z-index: -10;
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     content: "";
 }
 .footer-nav.footer-style-three ul li a {
@@ -114,11 +123,11 @@
     justify-content: center;
 }
 .footer-nav.footer-style-three ul li a:hover, .footer-nav.footer-style-three ul li a:focus {
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     color: #ffffff;
 }
 .footer-nav.footer-style-three ul li.active a {
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     color: #ffffff;
 }
 .footer-nav.footer-style-four ul li {
@@ -128,7 +137,7 @@
     color: #000000;
 }
 .footer-nav.footer-style-four ul li a:hover, .footer-nav.footer-style-four ul li a:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav.footer-style-four ul li span {
     font-size: 12px;
@@ -138,7 +147,7 @@
     line-height: 1;
 }
 .footer-nav.footer-style-four ul li.active a {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .footer-nav.footer-style-five ul li {
     height: 100%;
@@ -155,7 +164,7 @@
 .footer-nav.footer-style-five ul li::after {
     width: 2rem;
     height: 3px;
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     content: "";
     position: absolute;
     bottom: 0;
@@ -184,7 +193,7 @@
 .footer-nav.footer-style-six ul li::after {
     width: 2rem;
     height: 3px;
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     content: "";
     position: absolute;
     top: 0;
@@ -333,7 +342,7 @@
     width: 6px;
     height: 6px;
     display: inline-block;
-    background-color: #00A3FF;
+    background-color: #27BCCD;
     position: absolute;
     top: 4px;
     right: 1px;
@@ -345,7 +354,7 @@
     color: #000000;
 }
 .header-content .search-trigger-btn:hover, .header-content .search-trigger-btn:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .header-content.header-style-two .search-trigger-btn {
     width: 2.25rem;
@@ -365,7 +374,7 @@
     justify-content: center;
 }
 .header-content.header-style-two .search-trigger-btn:hover, .header-content.header-style-two .search-trigger-btn:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .header-content.header-style-two .navbar--toggler {
     width: 2.25rem;
@@ -412,7 +421,7 @@
     border-radius: 50%;
 }
 .header-content.header-style-three .user-profile-trigger-btn:hover, .header-content.header-style-three .user-profile-trigger-btn:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .header-content.header-style-three .navbar--toggler {
     width: 2.25rem;
@@ -449,7 +458,7 @@
     border-radius: 50%;
 }
 .header-content.header-style-four .user-profile-trigger-btn:hover, .header-content.header-style-four .user-profile-trigger-btn:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 .header-content.header-style-five .navbar--toggler {
     border: 2px solid #ebebeb;
@@ -467,7 +476,7 @@
     color: #000000;
 }
 .header-content.header-style-six .search-trigger-btn:hover, .header-content.header-style-six .search-trigger-btn:focus {
-    color: #00A3FF;
+    color: #27BCCD;
 }
 
 .bg-success .header-content .navbar--toggler,

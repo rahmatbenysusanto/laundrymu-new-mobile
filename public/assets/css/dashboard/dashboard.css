@@ -1,5 +1,5 @@
 .home-background-blue {
-    background: #00A3FF;
+    background: #27BCCD;
     height: 150px;
 }
 
@@ -43,7 +43,7 @@
     width: 83px;
     justify-content: center;
     align-items: center;
-    color: #00A3FF;
+    color: #27BCCD;
     text-align: center;
     font-family: Gantari, sans-serif;
     font-size: 14px;
@@ -76,12 +76,25 @@
 .card {
     padding: 16px;
     border: none;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12);
 }
 
 .card-ringkasan {
     border-radius: 6px;
     border: 1px solid #EDEDED;
     padding: 16px 8px;
+    box-shadow: -1px 0 1px 0 rgba(0, 0, 0, 0.10), 1px 0 1px 0 rgba(0, 0, 0, 0.10);
+}
+
+.card-ringkasan-active {
+    border-radius: 6px;
+    border: 1px solid #EDEDED;
+    padding: 16px 8px;
+    border-bottom: 2px solid #27BCCD;
+    background: #FFF;
+    box-shadow: -1px 0 1px 0 rgba(0, 0, 0, 0.10), 1px 0 1px 0 rgba(0, 0, 0, 0.10);
 }
 
 .card-ringkasan-title {
@@ -102,7 +115,7 @@
     font-weight: 600;
     line-height: 28px;
     letter-spacing: -0.34px;
-    margin-bottom: 4px;
+    margin-bottom: 0;
 }
 
 .form-label {
@@ -116,7 +129,7 @@
 }
 
 .text-bold-blue {
-    color: #00A3FF;
+    color: #27BCCD;
     text-align: center;
     font-family: Gantari, sans-serif;
     font-size: 20px;
@@ -124,4 +137,15 @@
     font-weight: 700;
     line-height: 28px;
     letter-spacing: -0.34px;
+    margin-bottom: 0;
+}
+
+.text-a-blue {
+    color: #27BCCD;
+    font-family: Gantari, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 12px;
+    margin-bottom: 4px;
 }

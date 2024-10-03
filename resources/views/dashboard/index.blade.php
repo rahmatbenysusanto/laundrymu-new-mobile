@@ -9,7 +9,7 @@
     @include('cdn.head')
     <link href="{{ asset('assets/css/dashboard/dashboard.css') }}" rel="stylesheet">
 </head>
-<body style="background-color: #EDEDED!important;">
+<body style="background-color: #F5F5F5!important;">
     <div class="header-area" id="headerArea">
         <div class="container">
             <div class="header-content header-style-five position-relative d-flex align-items-center justify-content-between">
@@ -51,24 +51,28 @@
                         <div class="card-ringkasan">
                             <p class="card-ringkasan-title">Laundry Baru</p>
                             <p class="card-ringkasan-jumlah" id="baru">0</p>
+                            <a href="#" class="text-a-blue">Detail</a>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="card-ringkasan">
                             <p class="card-ringkasan-title">Laundry Diproses</p>
                             <p class="card-ringkasan-jumlah" id="proses">0</p>
+                            <a href="#" class="text-a-blue">Detail</a>
                         </div>
                     </div>
                     <div class="col-6 mt-3">
                         <div class="card-ringkasan">
                             <p class="card-ringkasan-title">Laundry Selesai</p>
                             <p class="card-ringkasan-jumlah" id="selesai">0</p>
+                            <a href="#" class="text-a-blue">Detail</a>
                         </div>
                     </div>
                     <div class="col-6 mt-3">
                         <div class="card-ringkasan">
                             <p class="card-ringkasan-title">Laundry Diambil</p>
                             <p class="card-ringkasan-jumlah" id="diambil">0</p>
+                            <a href="#" class="text-a-blue">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -81,7 +85,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <div class="card-ringkasan">
+                        <div class="card-ringkasan-active">
                             <p class="card-ringkasan-title">Transaksi</p>
                             <p class="card-ringkasan-jumlah" id="transaksi">0</p>
                         </div>
@@ -174,11 +178,13 @@
                     plotOptions: {
                         bar: {
                             horizontal: false,
-                            columnWidth: '40%',
-                            endingShape: 'rounded'
+                            columnWidth: '50%',
+                            endingShape: 'rounded',
+                            borderRadius: 10,
+                            borderRadiusApplication: 'end',
                         },
                     },
-                    colors: ['#00A3FF'],
+                    colors: ['#27BCCD'],
                     dataLabels: {
                         enabled: false
                     },
@@ -227,7 +233,7 @@
                     ],
                     series: [{
                         name: 'Transaksi',
-                        data: response.data
+                        data: response.data[0]
                     }],
                     xaxis: {
                         crosshairs: {
@@ -253,7 +259,11 @@
                                 colors: '#8380ae',
                                 fontSize: '12px'
                             },
-                        }
+                        },
+                        min: 0,
+                        tickAmount: 5,
+                        forceNiceScale: true,
+                        decimalsInFloat: 0
                     },
                 }
 
@@ -269,10 +279,10 @@
                 const getData = await fetch('{{ route('getChart') }}');
                 const response = await getData.json();
 
-                let columnChart2 = {
+                let lineChart = {
                     chart: {
                         height: 240,
-                        type: 'bar',
+                        type: 'line',  // Ubah menjadi line chart
                         animations: {
                             enabled: true,
                             easing: 'easeinout',
@@ -292,14 +302,7 @@
                             show: false
                         },
                     },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '40%',
-                            endingShape: 'rounded'
-                        },
-                    },
-                    colors: ['#00A3FF'],
+                    colors: ['#27BCCD'],  // Warna garis tetap sama
                     dataLabels: {
                         enabled: false
                     },
@@ -330,12 +333,17 @@
                         },
                         x: {
                             show: false,
+                        },
+                        y: {
+                            formatter: function(value) {
+                                return 'Rp ' + value.toLocaleString('id-ID'); // Format tooltip menjadi Rupiah
+                            }
                         }
                     },
                     stroke: {
-                        show: true,
-                        colors: ['transparent'],
-                        width: 3
+                        curve: 'smooth',  // Membuat garis menjadi smooth
+                        width: 3,         // Lebar garis
+                        colors: ['#27BCCD']  // Warna garis
                     },
                     labels: [
                         '{{ date('d M', strtotime('-7 day')) }}',
@@ -348,7 +356,7 @@
                     ],
                     series: [{
                         name: 'Transaksi',
-                        data: response.data
+                        data: response.data[1]
                     }],
                     xaxis: {
                         crosshairs: {
@@ -374,14 +382,17 @@
                                 colors: '#8380ae',
                                 fontSize: '12px'
                             },
+                            formatter: function(value) {
+                                return 'Rp ' + value.toLocaleString('id-ID'); // Format leftbar menjadi Rupiah
+                            }
                         }
                     },
                 }
 
-                let columnChart_02 = new ApexCharts(document.querySelector("#chartNominalTransaksi"), columnChart2);
-                columnChart_02.render();
+                let lineChartInstance = new ApexCharts(document.querySelector("#chartNominalTransaksi"), lineChart);
+                lineChartInstance.render();
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
         }
     </script>

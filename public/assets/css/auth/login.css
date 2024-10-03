@@ -67,7 +67,7 @@ label{
 }
 
 .text-2{
-    color: #00A3FF;
+    color: #27BCCD;
     font-family: 'Gantari', sans-serif;
     font-size: 10px;
     font-style: normal;
@@ -77,8 +77,8 @@ label{
 }
 
 .btn-primary{
-    background-color: #00A3FF !important;
-    border-color: #00A3FF;
+    background-color: #27BCCD !important;
+    border-color: #27BCCD;
     font-family: 'Gantari', sans-serif;
     font-size: 16px;
     font-style: normal;
@@ -92,11 +92,11 @@ label{
 }
 
 .btn:hover{
-    border-color: #00A3FF !important;
+    border-color: #27BCCD !important;
 }
 
 .lupa-kata-sandi {
-    color: #00A3FF;
+    color: #27BCCD;
     font-family: Gantari, serif;
     font-size: 14px;
     font-style: normal;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
@@ -54,9 +55,24 @@ class AuthController extends Controller
         }
     }
 
-    public function processRegister(Request $request)
+    public function processRegister(Request $request): \Illuminate\Http\RedirectResponse
     {
+        $hit = $this->POSTLOGIN('api/auth/register', [
+            'nama'          => $request->post("nama"),
+            'email'         => $request->post("email"),
+            'no_hp'         => $request->post("no_hp"),
+            'nama_outlet'   => $request->post("outlet"),
+            'no_hp_outlet'  => $request->post("no_hp"),
+            'password'      => $request->post("password"),
+        ]);
 
+        if (isset($hit) && $hit->status) {
+            Session::flash('success', 'Register Berhasil');
+            return redirect()->action([AuthController::class, 'login']);
+        } else {
+            Session::flash('error', 'Register Gagal');
+            return back();
+        }
     }
 
     public function lupaKataSandi(): View
@@ -67,5 +83,19 @@ class AuthController extends Controller
     public function lupaKataSandiProses(Request $request)
     {
 
+    }
+
+    public function verifikasiOtp(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
+    {
+        return view('auth.otp');
+    }
+
+    public function logout(): \Illuminate\Http\RedirectResponse
+    {
+        Auth::logout();
+        Session::invalidate();
+        Session::regenerateToken();
+
+        return redirect()->action([AuthController::class, 'login']);
     }
 }

@@ -20,7 +20,7 @@ class AuthMiddleware
         if (Session::get("token") !== null) {
             return $next($request);
         } else {
-            return redirect()->action([AuthController::class, 'index']);
+            return redirect()->action([AuthController::class, 'login']);
         }
     }
 }

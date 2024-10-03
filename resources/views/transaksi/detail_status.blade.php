@@ -533,9 +533,9 @@
                             @if($transaksi->status == "baru")
                                 Laundry Baru
                             @elseif($transaksi->status == "diproses")
-                                Diproses
+                                Laundry Diproses
                             @elseif($transaksi->status == "selesai")
-                                Selesai
+                                Laundry Selesai
                             @elseif($transaksi->status == "diambil")
                                 Laundry Diambil
                             @endif
@@ -547,14 +547,14 @@
                             $no = 1;
                         @endphp
                         @foreach($histori as $his)
-                            @if($no == count($histori))
+                            @if($loop->iteration == 1)
                                 <div class="detail-status-transaksi pb-3">
-                                    <p class="text-keterangan" style="color: #00A3FF">{{ ucfirst($his->status) }} - {{ tanggal_jam_indo($his->created_at) }}</p>
+                                    <p class="text-keterangan" style="color: #00A3FF">Laundry {{ ucfirst($his->status) }} - {{ tanggal_jam_indo($his->created_at) }}</p>
                                     <p class="text-keterangan-status">{{ $his->keterangan }}</p>
                                 </div>
                             @else
                                 <div class="detail-status-transaksi pb-3">
-                                    <p class="text-keterangan">{{ ucfirst($his->status) }} - {{ tanggal_jam_indo($his->created_at) }}</p>
+                                    <p class="text-keterangan">Laundry {{ ucfirst($his->status) }} - {{ tanggal_jam_indo($his->created_at) }}</p>
                                     <p class="text-keterangan-status">{{ $his->keterangan }}</p>
                                 </div>
                             @endif

@@ -25,6 +25,11 @@ Route::get('/lupa-kata-sandi', [AuthController::class, 'lupaKataSandi'])->name('
 Route::post('/lupa-kata-sandi', [AuthController::class, 'lupaKataSandiProses'])->name('lupaKataSandiProses');
 
 Route::middleware([AuthMiddleware::class])->group(function () {
+    Route::controller(AuthController::class)->group(function () {
+        Route::get('/verifikasi-otp', 'verifikasiOtp')->name('verifikasiOtp');
+        Route::get('/logout', 'logout')->name('logout');
+    });
+
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'index')->name('dashboard');
         Route::get('/dashboard/get-data-status-laundry', 'statusLaundry')->name('statusLaundry');
