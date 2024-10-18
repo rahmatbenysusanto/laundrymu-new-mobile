@@ -22,12 +22,12 @@
                     </svg>
                     <div class="ms-3">
                         <p class="title-page mb-0">Laporan</p>
-                        <p class="sub-title-page">Hari ini ({{ date('d M Y') }})</p>
+                        <p class="sub-title-page" id="titleTanggal">Hari ini ({{ date('d M Y') }})</p>
                     </div>
                 </a>
                 <div class="logo-wrapper"></div>
                 <div>
-                    <a href="#">
+                    <a onclick="modalTanggal()">
                         <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.33301 2.33398V7.00065M18.6663 2.33398V7.00065" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M22.1667 4.66797H5.83333C4.54467 4.66797 3.5 5.71264 3.5 7.0013V23.3346C3.5 24.6233 4.54467 25.668 5.83333 25.668H22.1667C23.4553 25.668 24.5 24.6233 24.5 23.3346V7.0013C24.5 5.71264 23.4553 4.66797 22.1667 4.66797Z" stroke="#262626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -40,14 +40,15 @@
     </div>
 
     <div class="page-content-wrapper">
-        <section>
-            <div class="scrollmenu">
-                <a href="#" class="aktif">Operasional</a>
-                <a href="#">Pelanggan</a>
-                <a href="#">Pegawai</a>
-            </div>
-        </section>
         <div class="container" style="margin-top: 16px">
+            <section class="mt-5 mb-3">
+                <div class="scrollmenu">
+                    <a href="{{ route('laporan') }}" class="aktif">Operasional</a>
+                    <a href="{{ route('laporanPelanggan') }}">Pelanggan</a>
+                    <a href="{{ route('laporanPegawai') }}">Pegawai</a>
+                    <a href="{{ route('laporanKeuangan') }}">Keuangan</a>
+                </div>
+            </section>
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex align-items-center">
@@ -82,17 +83,14 @@
 
                     <div class="box-laporan mt-3">
                         <h3 class="title mb-1">Layanan</h3>
-                        <div class="list-layanan" id="listLayanan">
-
-                        </div>
                         <table class="table mb-0">
                             <thead>
                             <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col" class="text-center">Pemakaian</th>
+                                <th scope="col" width="50%">Nama</th>
+                                <th scope="col" width="50%" class="text-center">Pemakaian</th>
                             </tr>
                             </thead>
-                            <tbody id="">
+                            <tbody id="listLayanan">
 
                             </tbody>
                         </table>
@@ -103,8 +101,8 @@
                         <table class="table mb-0">
                             <thead>
                             <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col" class="text-center">Pemakaian</th>
+                                <th scope="col" width="50%">Nama</th>
+                                <th scope="col" width="50%" class="text-center">Pemakaian</th>
                             </tr>
                             </thead>
                             <tbody id="listParfum">
@@ -113,13 +111,13 @@
                         </table>
                     </div>
 
-                    <div class="box-laporan mt-4" style="margin-bottom: 70px">
+                    <div class="box-laporan mt-4">
                         <h3 class="title mb-1">Diskon</h3>
                         <table class="table mb-0">
                             <thead>
                             <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col" class="text-center">Pemakaian</th>
+                                <th scope="col" width="50%">Nama</th>
+                                <th scope="col" width="50%" class="text-center">Pemakaian</th>
                             </tr>
                             </thead>
                             <tbody id="listDiskon">
@@ -128,112 +126,204 @@
                         </table>
                     </div>
 
-                    {{--                <div class="box-laporan mt-4 mb-3">--}}
-                    {{--                    <h3 class="title mb-1">Pembayaran</h3>--}}
-                    {{--                    <table class="table mb-0">--}}
-                    {{--                        <thead>--}}
-                    {{--                        <tr>--}}
-                    {{--                            <th scope="col">Nama</th>--}}
-                    {{--                            <th scope="col" class="text-center">Pemakaian</th>--}}
-                    {{--                        </tr>--}}
-                    {{--                        </thead>--}}
-                    {{--                        <tbody id="listPembayaran">--}}
+                    <div class="box-laporan mt-4" style="margin-bottom: 70px">
+                        <h3 class="title mb-1">Pembayaran</h3>
+                        <table class="table mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col" width="50%">Nama</th>
+                                <th scope="col" width="50%" class="text-center">Pemakaian</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listPembayaran">
 
-                    {{--                        </tbody>--}}
-                    {{--                    </table>--}}
-                    {{--                </div>--}}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="modal fade" id="filterLaporan" tabindex="-1" aria-labelledby="filterLaporanLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filterLaporanLabel">Filter Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="filterForm">
+                    <div class="mb-3">
+                        <label for="tanggalMulai" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="tanggalMulai" name="tanggalMulai" value="{{ date('Y-m-d') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tanggalSelesai" class="form-label">Tanggal Selesai</label>
+                        <input type="date" class="form-control" id="tanggalSelesai" name="tanggalSelesai" value="{{ date('Y-m-d') }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <a class="btn btn-primary" onclick="filterLaporan()">Terapkan Filter</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
     @include('cdn.script')
+
     <script>
-        ops_layanan();
-        ops_transaksi();
-        ops_parfum();
-        ops_diskon();
+        // Default Date
+        localStorage.setItem('tanggalMulai', JSON.stringify('{{ date('Y-m-d') }}'));
+        localStorage.setItem('tanggalSelesai', JSON.stringify('{{ date('Y-m-d') }}'));
+    </script>
 
-        async function ops_transaksi() {
-            try {
-                const getData = await fetch("{{ route('ops_transaksi') }}");
-                const response = await getData.json();
+    <script>
+        laporanOperasional();
 
-                document.getElementById('transaksi-selesai').innerText = response.data.selesai;
-                document.getElementById('transaksi-batal').innerText = response.data.dibatalkan;
-            } catch (e) {
-                document.getElementById('transaksi-selesai').innerText = '-';
-                document.getElementById('transaksi-batal').innerText = '-';
-            }
+        function laporanOperasional() {
+            // Default Run
+            const start = JSON.parse(localStorage.getItem('tanggalMulai'));
+            const end = JSON.parse(localStorage.getItem('tanggalSelesai'));
+
+            $.ajax({
+                url: '{{ route('laporan.jumlahTransaksi') }}',
+                method: 'GET',
+                data: {
+                    start: start,
+                    end: end
+                },
+                success: (res) => {
+                    document.getElementById('transaksi-selesai').innerText = res.data.selesai;
+                    document.getElementById('transaksi-batal').innerText = res.data.batal;
+                }
+            });
+
+            $.ajax({
+                url: '{{ route('laporan.layanan') }}',
+                method: 'GET',
+                data: {
+                    start: start,
+                    end: end
+                },
+                success: (res) => {
+                    const layanan = res.data;
+                    let html = '';
+
+                    layanan.forEach((lay) => {
+                        html += `
+                            <tr>
+                                <td>${lay.layanan}</td>
+                                <td class="text-center">${lay.jumlah}</td>
+                            </tr>
+                        `;
+                    });
+
+                    document.getElementById('listLayanan').innerHTML = html;
+                }
+            });
+
+            $.ajax({
+                url: '{{ route('laporan.parfum') }}',
+                method: 'GET',
+                data: {
+                    start: start,
+                    end: end
+                },
+                success: (res) => {
+                    const parfum = res.data;
+                    let html = '';
+
+                    parfum.forEach((par) => {
+                        html += `
+                            <tr>
+                                <td>${par.parfum}</td>
+                                <td class="text-center">${par.jumlah}</td>
+                            </tr>
+                        `;
+                    });
+
+                    document.getElementById('listParfum').innerHTML = html;
+                }
+            });
+
+            $.ajax({
+                url: '{{ route('laporan.diskon') }}',
+                method: 'GET',
+                data: {
+                    start: start,
+                    end: end
+                },
+                success: (res) => {
+                    const diskon = res.data;
+                    let html = '';
+
+                    diskon.forEach((dis) => {
+                        html += `
+                            <tr>
+                                <td>${dis.diskon}</td>
+                                <td class="text-center">${dis.jumlah}</td>
+                            </tr>
+                        `;
+                    });
+
+                    document.getElementById('listDiskon').innerHTML = html;
+                }
+            });
+
+            $.ajax({
+                url: '{{ route('laporan.pembayaran') }}',
+                method: 'GET',
+                data: {
+                    start: start,
+                    end: end
+                },
+                success: (res) => {
+                    const pembayaran = res.data;
+                    let html = '';
+
+                    pembayaran.forEach((pem) => {
+                        html += `
+                            <tr>
+                                <td>${pem.pembayaran}</td>
+                                <td class="text-center">${pem.jumlah}</td>
+                            </tr>
+                        `;
+                    });
+
+                    document.getElementById('listPembayaran').innerHTML = html;
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function modalTanggal() {
+            $('#filterLaporan').modal('show');
         }
 
-        async function ops_layanan() {
-            try {
-                const getData = await fetch("{{ route('ops_layanan') }}");
-                const response = await getData.json();
-
-                let dataLayanan = response.data;
-                let html = '';
-
-                dataLayanan.forEach(function (layanan) {
-                    html += `
-                        <a class="box-layanan">
-                            <p class="layanan-menu">${layanan.nama}</p>
-                            <p class="layanan-jumlah">${layanan.jumlah}</p>
-                        </a>
-                    `;
-                });
-
-                document.getElementById('listLayanan').innerHTML = html;
-            } catch (e) {
-                document.getElementById('listLayanan').innerHTML = '';
-            }
+        function formatTanggal(tanggal) {
+            const options = { year: 'numeric', month: 'short', day: '2-digit' };
+            return new Date(tanggal).toLocaleDateString('en-GB', options).replace(',', '');
         }
 
-        async function ops_parfum() {
-            try {
-                const getData = await fetch("{{ route('ops_parfum') }}");
-                const response = await getData.json();
+        function filterLaporan() {
+            const tanggalMulai = document.getElementById('tanggalMulai').value;
+            const tanggalSelesai = document.getElementById('tanggalSelesai').value;
 
-                let dataParfum = response.data;
-                let html = '';
-
-                dataParfum.forEach(function (parfum) {
-                    html += `
-                        <tr>
-                            <td>${parfum.nama}</td>
-                            <td class="text-center">${parfum.jumlah}</td>
-                        </tr>
-                    `;
-                });
-
-                document.getElementById('listParfum').innerHTML = html;
-            } catch (e) {
-                document.getElementById('listParfum').innerHTML = '';
+            if (tanggalMulai === tanggalSelesai) {
+                document.getElementById('titleTanggal').innerText = formatTanggal(tanggalMulai);
+            } else {
+                document.getElementById('titleTanggal').innerText = formatTanggal(tanggalMulai) + ' - ' + formatTanggal(tanggalSelesai);
             }
-        }
 
-        async function ops_diskon() {
-            try {
-                const getData = await fetch("{{ route('ops_diskon') }}");
-                const response = await getData.json();
+            localStorage.setItem('tanggalMulai', JSON.stringify(tanggalMulai))
+            localStorage.setItem('tanggalSelesai', JSON.stringify(tanggalSelesai))
 
-                let dataDiskon = response.data;
-                let html = '';
-
-                dataDiskon.forEach(function (diskon) {
-                    html += `
-                        <tr>
-                            <td>${diskon.nama}</td>
-                            <td class="text-center">${diskon.jumlah}</td>
-                        </tr>
-                    `;
-                });
-
-                document.getElementById('listDiskon').innerHTML = html;
-            } catch (e) {
-                document.getElementById('listDiskon').innerHTML = '';
-            }
+            laporanOperasional();
+            $('#filterLaporan').modal('hide');
         }
     </script>
 

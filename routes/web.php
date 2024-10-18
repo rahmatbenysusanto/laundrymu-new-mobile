@@ -40,12 +40,16 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::controller(LaporanController::class)->group(function () {
         Route::get('/laporan', 'index')->name('laporan');
-        Route::get('/laporan/ops-transaksi', 'ops_transaksi')->name('ops_transaksi');
-        Route::get('/laporan/ops-layanan', 'ops_layanan')->name('ops_layanan');
-        Route::get('/laporan/ops-parfum', 'ops_parfum')->name('ops_parfum');
-        Route::get('/laporan/ops-diskon', 'ops_diskon')->name('ops_diskon');
-        Route::get('/laporan/ops-pembayaran', 'ops_pembayaran')->name('ops_pembayaran');
-        Route::get('/laporan/pembayaran', 'laporan_ops_pembayaran')->name('laporan_ops_pembayaran');
+        Route::get('/laporan-pegawai', 'laporanPegawai')->name('laporanPegawai');
+        Route::get('/laporan-pelanggan', 'laporanPelanggan')->name('laporanPelanggan');
+        Route::get('/laporan-keuangan', 'laporanKeuangan')->name('laporanKeuangan');
+
+        // Operasional API JSON
+        Route::get('/laporan/jumlah-transaksi', 'jumlahTransaksi')->name('laporan.jumlahTransaksi');
+        Route::get('/laporan/layanan', 'layanan')->name('laporan.layanan');
+        Route::get('/laporan/parfum', 'parfum')->name('laporan.parfum');
+        Route::get('/laporan/diskon', 'diskon')->name('laporan.diskon');
+        Route::get('/laporan/pembayaran', 'pembayaran')->name('laporan.pembayaran');
     });
 
     Route::controller(LainnyaController::class)->group(function () {

@@ -5,79 +5,89 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class LaporanController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('laporan.index');
     }
 
-    public function ops_transaksi(): \Illuminate\Http\JsonResponse
+    public function laporanPelanggan(): View
     {
-        $dataTransaksi = $this->GET('api/laporan/transaksi-hari-ini/'.Session::get('toko')->id, []);
-        $transaksi = $dataTransaksi->data ?? [];
+        return view('laporan.pelanggan');
+    }
+
+    public function laporanPegawai(): View
+    {
+        return view('laporan.pegawai');
+    }
+
+    public function laporanKeuangan(): View
+    {
+        return view('laporan.keuangan');
+    }
+
+    // Operasional
+
+    public function jumlahTransaksi(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $start = substr($request->get('start'), 0, 10);
+        $end = substr($request->get('end'), 0, 10);
+
+        $hit = $this->GET('api/laporan/jumlah-transaksi?outlet_id='.Session::get('toko')->id.'&start='.$start.'&end='.$end, []);
 
         return response()->json([
-            'data'  => $transaksi
+            'data'  => $hit->data
         ]);
     }
 
-    public function ops_layanan(): \Illuminate\Http\JsonResponse
+    public function layanan(Request $request): \Illuminate\Http\JsonResponse
     {
-        $dataLayanan = $this->GET('api/laporan/layanan/'.Session::get('toko')->id, []);
-        $layanan = $dataLayanan->data ?? [];
+        $start = substr($request->get('start'), 0, 10);
+        $end = substr($request->get('end'), 0, 10);
+
+        $hit = $this->GET('api/laporan/layanan?outlet_id='.Session::get('toko')->id.'&start='.$start.'&end='.$end, []);
 
         return response()->json([
-            'data'  => $layanan
+            'data'  => $hit->data
         ]);
     }
 
-    public function ops_diskon(): \Illuminate\Http\JsonResponse
+    public function parfum(Request $request): \Illuminate\Http\JsonResponse
     {
-        $dataTransaksi = $this->GET('api/laporan/diskon/'.Session::get('toko')->id, []);
-        $transaksi = $dataTransaksi->data ?? [];
+        $start = substr($request->get('start'), 0, 10);
+        $end = substr($request->get('end'), 0, 10);
+
+        $hit = $this->GET('api/laporan/parfum?outlet_id='.Session::get('toko')->id.'&start='.$start.'&end='.$end, []);
 
         return response()->json([
-            'data'  => $transaksi
+            'data'  => $hit->data
         ]);
     }
 
-    public function ops_parfum(): \Illuminate\Http\JsonResponse
+    public function diskon(Request $request): \Illuminate\Http\JsonResponse
     {
-        $dataTransaksi = $this->GET('api/laporan/parfum/'.Session::get('toko')->id, []);
-        $transaksi = $dataTransaksi->data ?? [];
+        $start = substr($request->get('start'), 0, 10);
+        $end = substr($request->get('end'), 0, 10);
+
+        $hit = $this->GET('api/laporan/diskon?outlet_id='.Session::get('toko')->id.'&start='.$start.'&end='.$end, []);
 
         return response()->json([
-            'data'  => $transaksi
+            'data'  => $hit->data
         ]);
     }
 
-    public function laporan_ops_pembayaran(): \Illuminate\Http\JsonResponse
+    public function pembayaran(Request $request): \Illuminate\Http\JsonResponse
     {
-        $dataTransaksi = $this->GET('api/laporan/pembayaran/'.Session::get('toko')->id, []);
-        $transaksi = $dataTransaksi->data ?? [];
+        $start = substr($request->get('start'), 0, 10);
+        $end = substr($request->get('end'), 0, 10);
 
-        Log::info(json_encode($transaksi));
-
-        if (isset($transaksi)) {
-            return response()->json([
-                'data'  => $transaksi
-            ]);
-        } else {
-            return response()->json([
-                'data'  => []
-            ]);
-        }
-    }
-
-    public function ops_pembayaran(): \Illuminate\Http\JsonResponse
-    {
-        $dataTransaksi = $this->GET('api/laporan/pembayaran/'.Session::get('toko')->id, []);
-        $transaksi = $dataTransaksi->data ?? [];
+        $hit = $this->GET('api/laporan/pembayaran?outlet_id='.Session::get('toko')->id.'&start='.$start.'&end='.$end, []);
 
         return response()->json([
-            'data'  => $transaksi
+            'data'  => $hit->data
         ]);
     }
 }
