@@ -7,6 +7,7 @@ use App\Http\Controllers\KodePosController;
 use App\Http\Controllers\LainnyaController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LayananController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\ParfumController;
 use App\Http\Controllers\PelangganController;
@@ -147,5 +148,10 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::get('/pengiriman', 'index')->name('pengiriman');
         Route::get('/pengiriman-create', 'create')->name('pengirimanCreate');
         Route::post('/pengiriman', 'pengirimanProses')->name('pengirimanProses');
+    });
+
+    Route::controller(NotificationController::class)->group(function () {
+        Route::get('/notification', 'findByUserId')->name('notification');
+        Route::get('/notification/count', 'count')->name('countNotification');
     });
 });

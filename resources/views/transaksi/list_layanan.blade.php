@@ -32,9 +32,9 @@
 
     <div class="pt-2"></div>
     <div class="container">
-        <div class="row">
+        <div class="row pt-1">
             @foreach($layanan as $lay)
-                <div class="col-12 pt-3">
+                <div class="col-12 pb-3">
                     <div class="card card-white p-3">
                         <div class="d-flex justify-content-between align-content-center align-items-center">
                             <div>

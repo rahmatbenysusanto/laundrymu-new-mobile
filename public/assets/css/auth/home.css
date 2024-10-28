@@ -53,8 +53,8 @@ p{
 }
 
 .btn-primary{
-    background-color: #00A3FF !important;
-    border-color: #00A3FF;
+    background-color: #27BCCD !important;
+    border-color: #27BCCD;
     font-family: 'Gantari', sans-serif;
     font-size: 16px;
     font-style: normal;
@@ -68,7 +68,7 @@ p{
 }
 
 .btn:hover{
-    border-color: #00A3FF !important;
+    border-color: #27BCCD !important;
 }
 
 span{

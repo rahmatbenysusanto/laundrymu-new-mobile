@@ -149,3 +149,25 @@
     line-height: 12px;
     margin-bottom: 4px;
 }
+
+.notification {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px; /* Posisi vertikal */
+    left: 15px; /* Posisi horizontal */
+    background-color: #ff0000; /* Warna latar belakang lingkaran */
+    color: white; /* Warna teks */
+    font-size: 10px; /* Ukuran font lebih kecil */
+    padding: 2px 5px; /* Padding untuk menyesuaikan ukuran lingkaran */
+    border-radius: 50%; /* Membuat lingkaran */
+    min-width: 16px;
+    height: 16px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
