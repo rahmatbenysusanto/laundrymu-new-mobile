@@ -44,16 +44,14 @@ class OutletController extends Controller
 
     function perpanjangLisensi($id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
     {
-        $dataToko = $this->GET('api/toko/'.$id, []);
+        $dataToko = $this->GET('api/outlet?id='.$id.'&user_id='.Session::get('user_id'), []);
         if (isset($dataToko) && $dataToko->status) {
-            $dataLisensi = $this->GET('api/get-lisensi', []);
-            $dataMetodePembayaran = $this->GET('api/get-metode-pembayaran', []);
+            $dataLisensi = $this->GET('api/lisensi', []);
             $lisensi = $dataLisensi->data ?? [];
-            $metodePembayaran = $dataMetodePembayaran->data ?? [];
-            $toko = $dataToko->data;
+            $outlet = $dataToko->data;
 
             $title = "outlet";
-            return view('outlet.perpanjang_lisensi', compact('title', 'toko', 'lisensi', 'metodePembayaran'));
+            return view('outlet.perpanjang_lisensi', compact('title', 'outlet', 'lisensi'));
         } else {
             return back();
         }
@@ -61,11 +59,10 @@ class OutletController extends Controller
 
     public function perpanjangLisensiProses(Request $request): \Illuminate\Http\RedirectResponse
     {
-        $result = $this->POST('api/toko/perpanjang-lisensi', [
-            'toko_id'               => $request->post('toko_id'),
-            'user_id'               => Session::get('data_user')->id,
-            'lisensi_id'            => $request->post('lisensi'),
-            'metode_pembayaran_id'  => $request->post('metode_pembayaran')
+        $result = $this->POST('api/outlet/pembayaran', [
+            'outlet_id'             => Session::get('toko')->id,
+            'user_id'               => Session::get('user_id'),
+            'lisensi_id'            => $request->post('lisensi')
         ]);
 
         if (isset($result) && $result->status) {

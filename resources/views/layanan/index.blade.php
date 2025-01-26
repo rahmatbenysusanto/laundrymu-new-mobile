@@ -126,44 +126,49 @@
         }
 
         function hapusLayanan(id) {
-            Swal.fire({
-                title:"Apakah kamu yakin?",
-                text:"Menghapus layanan ini",
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                denyButtonText: `Batal`,
-                confirmButtonText: "Hapus"
-            }).then(function(t){
-                if (t.value) {
-                    $.ajax({
-                        url: '{{ route("hapusLayanan") }}',
-                        method: 'GET',
-                        data: {
-                            id: id
-                        },
-                        success: function (res) {
-                            if (res.status) {
-                                Swal.fire({
-                                    title: "Berhasil",
-                                    text: "Layanan Berhasil dihapus",
-                                    icon: "success"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Gagal",
-                                    text: "Layanan Gagal dihapus",
-                                    icon: "error"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
+            Notiflix.Confirm.show(
+                'Apakah kamu yakin?',
+                'Menghapus layanan ini',
+                'Hapus Layanan',
+                'Batal',
+                () => {
+                    Notiflix.Loading.circle();
+                    setTimeout(() => {
+                        Notiflix.Loading.remove();
+                        $.ajax({
+                            url: '{{ route("hapusLayanan") }}',
+                            method: 'GET',
+                            data: {
+                                id: id
+                            },
+                            success: function (res) {
+                                if (res.status) {
+                                    Notiflix.Report.success(
+                                        'Berhasil',
+                                        `Layanan berhasil dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                } else {
+                                    Notiflix.Report.success(
+                                        'Gagal',
+                                        `Layanan Gagal dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    });
+                        });
+                    }, 1000);
+                },
+                () => {
+                    $('#pilihan').modal('hide');
                 }
-            });
+            );
         }
     </script>
 </body>

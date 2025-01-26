@@ -91,7 +91,9 @@
                                                 </div>
                                                 <div class="row mt-3">
                                                     <div class="col-10">
-                                                        <a class="btn btn-putih">Perpanjang Lisensi</a>
+                                                        @if(Session::get('toko')->id == $out->outlet->id)
+                                                            <a href="/perpanjang-lisensi-outlet/{{ $out->outlet->id }}" class="btn btn-putih">Perpanjang Lisensi</a>
+                                                        @endif
                                                     </div>
                                                     <div class="col-2">
                                                         <a onclick="pilihan('{{ $out->outlet->id }}', '{{ $out->outlet->nama }}', '{{ $out->outlet->id == Session::get('toko')->id ? "tidak" : "benar" }}')" class="btn btn-putih">
@@ -206,34 +208,45 @@
         }
 
         function changeOutlet(id, nama) {
-            Swal.fire({
-                title:"Apakah anda yakin?",
-                text:`Untuk pindah ke Outlet ${nama}.`,
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: "Pindah Outlet",
-                denyButtonText: "Kembali",
-            }).then(async function(t) {
-                if (t.value) {
-                    try {
-                        const useOutlet = await fetch(`/gunakan-outlet/${id}`);
-                        const response = await useOutlet.json();
+            Notiflix.Confirm.show(
+                'Apakah kamu yakin?',
+                `Untuk pindah ke Outlet ${nama}.`,
+                'Pindah Outlet',
+                'Batal',
+                () => {
+                    Notiflix.Loading.circle();
+                    setTimeout(async () => {
+                        Notiflix.Loading.remove();
+                        try {
+                            const useOutlet = await fetch(`/gunakan-outlet/${id}`);
+                            const response = await useOutlet.json();
 
-                        if (response.status) {
-                            Swal.fire({
-                                title: "Berhasil",
-                                text: "Pindah Outlet Berhasil",
-                                icon: "success"
-                            }).then(function (r) {
-                                location.replace('');
-                            });
+                            if (response.status) {
+                                Notiflix.Report.success(
+                                    'Berhasil',
+                                    `Pindah Outlet Berhasil`,
+                                    'Kembali',
+                                    () => {
+                                        location.reload();
+                                    }
+                                );
+                            }
+                        } catch (e) {
+                            Notiflix.Report.success(
+                                'Gagal',
+                                `Pindah Outlet Gagal`,
+                                'Kembali',
+                                () => {
+                                    location.reload();
+                                }
+                            );
                         }
-                    } catch (e) {
-
-                    }
+                    }, 1000);
+                },
+                () => {
+                    $('#pilihan').modal('hide');
                 }
-            });
+            );
         }
     </script>
 </body>

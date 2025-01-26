@@ -86,7 +86,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-3">
                         <label for="kodePromo" class="form-label">Kode Promo</label>
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" name="kodePromo" id="kodePromo">
@@ -125,36 +125,59 @@
         let form = document.getElementById('createOutlet');
         let formData = new FormData(form);
 
-        Swal.fire({
-            title:"Apakah anda yakin?",
-            text:"Untuk memproses pembayaran ini.",
-            icon:"warning",
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: "Proses Pembayaran",
-            denyButtonText: "Kembali",
-        }).then(async function(result) {
-            if (result.isConfirmed) {
-                try {
-                    const response = await fetch('{{ route('createOutlet') }}', {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        }
-                    });
+        Notiflix.Confirm.show(
+            'Apakah anda yakin?',
+            'Untuk membuat outlet ini',
+            'Buat Outlet',
+            'Batal',
+            () => {
+                Notiflix.Loading.circle();
+                setTimeout(async () => {
+                    Notiflix.Loading.remove();
+                    try {
+                        const response = await fetch('{{ route('createOutlet') }}',
+                            {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                }
+                            });
 
-                    if (response.ok) {
-                        const result = await response.json();
-                        console.log('Success:', result);
-                    } else {
-                        console.error('Failed:', response.statusText);
+                        if (response.ok) {
+                            const result = await response.json();
+                            Notiflix.Report.success(
+                                'Berhasil',
+                                `Pembuatan Outlet berhasil, Silahkan melakukan pembayaran agar outlet bisa dipakai, Link pembayaran telah kami kirimkan melalui WhatsApp`,
+                                'Ya',
+                                () => {
+                                    location.replace('{{ route('outlet') }}');
+                                }
+                            );
+                        } else {
+                            Notiflix.Report.failure(
+                                'Gagal',
+                                `Pembuatan Outlet Gagal`,
+                                'Kembali'
+                            );
+                        }
+                    } catch (error) {
+                        Notiflix.Report.failure(
+                            'Gagal',
+                            `Pembuatan Outlet Gagal`,
+                            'Kembali'
+                        );
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
+                }, 1000);
+            },
+            () => {
+                Notiflix.Report.info(
+                    'Batal',
+                    `Pembuatan Outlet Batal`,
+                    'Kembali'
+                );
             }
-        });
+        );
     }
 
     function getProvinsi(data) {

@@ -472,94 +472,72 @@
             let pelanggan = JSON.parse(localStorage.getItem('pelanggan')) ?? null
             if (pelanggan === null) {
                 scoreValidate++;
-                Swal.fire({
-                    title:"Peringatan",
-                    text: 'Pelanggan tidak boleh kosong',
-                    icon:"warning",
-                    showCancelButton:!0,
-                    showConfirmButton:!1,
-                    cancelButtonClass:"btn btn-primary w-xs mb-1",
-                    cancelButtonText:"Kembali",
-                    buttonsStyling:!1,
-                    showCloseButton:!0
-                });
+                Notiflix.Report.warning(
+                    'Peringatan',
+                    'Pelanggan tidak boleh kosong',
+                    'Kembali'
+                );
             }
 
             if (scoreValidate === 0) {
-                Swal.fire({
-                    title:"Apakah anda yakin?",
-                    text:"Untuk membuat transaksi ini.",
-                    icon:"warning",
-                    showDenyButton: true,
-                    showCancelButton: false,
-                    confirmButtonText: "Buat Transaksi",
-                    denyButtonText: "Kembali",
-                }).then(async function (t) {
-                    if (t.value) {
-                        try {
-                            const create = await fetch("{{ route('buatTransaksi') }}", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    _token: '{{ @csrf_token() }}',
-                                    layanan: JSON.parse(localStorage.getItem('transaksiLayanan')) ?? null,
-                                    diskon: JSON.parse(localStorage.getItem('diskon')) ?? null,
-                                    parfum: JSON.parse(localStorage.getItem('parfum')) ?? null,
-                                    pelanggan: JSON.parse(localStorage.getItem('pelanggan')) ?? null,
-                                    pengiriman: JSON.parse(localStorage.getItem('pengiriman')) ?? null,
-                                    pembayaran: document.getElementById('pembayaran').value,
-                                    statusPembayaran: JSON.parse(localStorage.getItem('statusPembayaran')) ?? null,
-                                    catatan: document.getElementById('catatan').value,
-                                    harga: localStorage.getItem('biayaLayanan') ?? 0,
-                                    biayaDiskon: JSON.parse(localStorage.getItem('biayaDiskon')) ?? 0,
-                                    totalHarga: JSON.parse(localStorage.getItem('totalHarga')) ?? 0,
-                                })
-                            });
-                            const response = await create.json();
+                Notiflix.Confirm.show(
+                    'Apakah anda yakin?',
+                    'Untuk membuat transaksi ini',
+                    'Buat Transaksi',
+                    'Batal',
+                    () => {
+                        Notiflix.Loading.circle();
 
-                            console.log(response);
-                            console.log('hahaha');
-
-                            if (response.status) {
-                                location.href = '{{ route('notifSuccessCreateTransaksi') }}';
-                            } else {
-                                Swal.fire({
-                                    html: '<div class="mt-3">' +
-                                        '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
-                                        '<div class="mt-4 pt-2 fs-15">' +
-                                        '<h4>Gagal !</h4>' +
-                                        '<p class="text-muted mx-4 mb-0">Buat Transaksi Gagal.</p>' +
-                                        '</div>' +
-                                        '</div>',
-                                    showCancelButton: !0,
-                                    showConfirmButton: !1,
-                                    cancelButtonClass: "btn btn-primary w-xs mb-1",
-                                    cancelButtonText: "Kembali",
-                                    buttonsStyling: !1,
-                                    showCloseButton: !0
+                        setTimeout(async () => {
+                            try {
+                                const create = await fetch("{{ route('buatTransaksi') }}", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        _token: '{{ @csrf_token() }}',
+                                        layanan: JSON.parse(localStorage.getItem('transaksiLayanan')) ?? null,
+                                        diskon: JSON.parse(localStorage.getItem('diskon')) ?? null,
+                                        parfum: JSON.parse(localStorage.getItem('parfum')) ?? null,
+                                        pelanggan: JSON.parse(localStorage.getItem('pelanggan')) ?? null,
+                                        pengiriman: JSON.parse(localStorage.getItem('pengiriman')) ?? null,
+                                        pembayaran: document.getElementById('pembayaran').value,
+                                        statusPembayaran: JSON.parse(localStorage.getItem('statusPembayaran')) ?? null,
+                                        catatan: document.getElementById('catatan').value,
+                                        harga: localStorage.getItem('biayaLayanan') ?? 0,
+                                        biayaDiskon: JSON.parse(localStorage.getItem('biayaDiskon')) ?? 0,
+                                        totalHarga: JSON.parse(localStorage.getItem('totalHarga')) ?? 0,
+                                    })
                                 });
+                                const response = await create.json();
+
+                                if (response.status) {
+                                    location.href = '{{ route('notifSuccessCreateTransaksi') }}';
+                                } else {
+                                    Notiflix.Report.failure(
+                                        'Gagal',
+                                        'Buat Transaksi Gagal',
+                                        'Kembali'
+                                    );
+                                }
+                            } catch (e) {
+                                Notiflix.Report.failure(
+                                    'Gagal',
+                                    'Buat Transaksi Gagal',
+                                    'Kembali'
+                                );
                             }
-                        } catch (e) {
-                            Swal.fire({
-                                html: '<div class="mt-3">' +
-                                    '<lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#f06548,secondary:#f7b84b" style="width:120px;height:120px"></lord-icon>' +
-                                    '<div class="mt-4 pt-2 fs-15">' +
-                                    '<h4>Gagal !</h4>' +
-                                    '<p class="text-muted mx-4 mb-0">Buat Transaksi Gagal.</p>' +
-                                    '</div>' +
-                                    '</div>',
-                                showCancelButton: !0,
-                                showConfirmButton: !1,
-                                cancelButtonClass: "btn btn-primary w-xs mb-1",
-                                cancelButtonText: "Kembali",
-                                buttonsStyling: !1,
-                                showCloseButton: !0
-                            });
-                        }
+                        }, 1000);
+                    },
+                    () => {
+                        Notiflix.Report.info(
+                            'Peringatan',
+                            'Buat Transaksi Batal',
+                            'Kembali'
+                        );
                     }
-                });
+                )
             }
         }
     </script>

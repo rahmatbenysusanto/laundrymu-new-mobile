@@ -24,7 +24,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function processLogin(Request $request)
+    public function processLogin(Request $request): \Illuminate\Http\RedirectResponse
     {
         $data["no_hp"] = $request->post("username");
         $data["password"] = $request->post("password");

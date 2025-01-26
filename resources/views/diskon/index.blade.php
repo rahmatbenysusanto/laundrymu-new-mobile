@@ -125,51 +125,56 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                         <path d="M3.70024 3.70024C3.81618 3.58413 3.95388 3.49202 4.10545 3.42918C4.25702 3.36633 4.41949 3.33398 4.58358 3.33398C4.74766 3.33398 4.91013 3.36633 5.0617 3.42918C5.21327 3.49202 5.35097 3.58413 5.46691 3.70024L10.0002 8.23191L14.5336 3.70024C14.6496 3.58424 14.7873 3.49222 14.9389 3.42944C15.0904 3.36667 15.2529 3.33435 15.4169 3.33435C15.581 3.33435 15.7434 3.36667 15.895 3.42944C16.0465 3.49222 16.1842 3.58424 16.3002 3.70024C16.4162 3.81624 16.5083 3.95396 16.571 4.10552C16.6338 4.25708 16.6661 4.41952 16.6661 4.58358C16.6661 4.74763 16.6338 4.91007 16.571 5.06163C16.5083 5.21319 16.4162 5.35091 16.3002 5.46691L11.7686 10.0002L16.3002 14.5336C16.5345 14.7678 16.6661 15.0856 16.6661 15.4169C16.6661 15.7482 16.5345 16.066 16.3002 16.3002C16.066 16.5345 15.7482 16.6661 15.4169 16.6661C15.0856 16.6661 14.7678 16.5345 14.5336 16.3002L10.0002 11.7686L5.46691 16.3002C5.23263 16.5345 4.91489 16.6661 4.58358 16.6661C4.25226 16.6661 3.93452 16.5345 3.70024 16.3002C3.46597 16.066 3.33435 15.7482 3.33435 15.4169C3.33435 15.0856 3.46597 14.7678 3.70024 14.5336L8.23191 10.0002L3.70024 5.46691C3.58413 5.35097 3.49202 5.21327 3.42918 5.0617C3.36633 4.91013 3.33398 4.74766 3.33398 4.58358C3.33398 4.41949 3.36633 4.25702 3.42918 4.10545C3.49202 3.95388 3.58413 3.81618 3.70024 3.70024Z" fill="#F83535"/>
                     </svg>
-                    <span class="menu-modal-danger ms-2">Hapus Layanan</span>
+                    <span class="menu-modal-danger ms-2">Hapus Diskon</span>
                 </div>
             </a>
         `;
         }
 
         function hapusLayanan(id) {
-            Swal.fire({
-                title:"Apakah kamu yakin?",
-                text:"Menghapus Diskon ini",
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                denyButtonText: `Batal`,
-                confirmButtonText: "Hapus"
-            }).then(function(t){
-                if (t.value) {
-                    $.ajax({
-                        url: '{{ route("hapusDiskon") }}',
-                        method: 'GET',
-                        data: {
-                            id: id
-                        },
-                        success: function (res) {
-                            if (res.status) {
-                                Swal.fire({
-                                    title: "Berhasil",
-                                    text: "Diskon Berhasil dihapus",
-                                    icon: "success"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Gagal",
-                                    text: "Diskon Gagal dihapus",
-                                    icon: "error"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
+            Notiflix.Confirm.show(
+                'Apakah kamu yakin?',
+                'Menghapus Diskon ini',
+                'Hapus Diskon',
+                'Batal',
+                () => {
+                    Notiflix.Loading.circle();
+                    setTimeout(() => {
+                        Notiflix.Loading.remove();
+                        $.ajax({
+                            url: '{{ route("hapusDiskon") }}',
+                            method: 'GET',
+                            data: {
+                                id: id
+                            },
+                            success: function (res) {
+                                if (res.status) {
+                                    Notiflix.Report.success(
+                                        'Berhasil',
+                                        `Diskon berhasil dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                } else {
+                                    Notiflix.Report.success(
+                                        'Gagal',
+                                        `Diskon Gagal dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    });
+                        });
+                    }, 1000);
+                },
+                () => {
+                    $('#pilihan').modal('hide');
                 }
-            });
+            );
         }
     </script>
 </body>

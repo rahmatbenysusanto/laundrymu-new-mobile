@@ -148,6 +148,9 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::get('/pengiriman', 'index')->name('pengiriman');
         Route::get('/pengiriman-create', 'create')->name('pengirimanCreate');
         Route::post('/pengiriman', 'pengirimanProses')->name('pengirimanProses');
+        Route::get('/edit-pengiriman/{id}', 'edit');
+        Route::post('/edit-pengiriman', 'editPengiriman')->name('editPengiriman');
+        Route::get('/hapus-pengiriman', 'hapusPengiriman')->name('hapusPengiriman');
     });
 
     Route::controller(NotificationController::class)->group(function () {

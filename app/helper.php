@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Carbon;
+
 function tanggal_jam_indo($date): string
 {
     $date = date('Y-m-d H:i', ($date / 1000));
@@ -69,4 +71,14 @@ function getStr(string $bulan): string
         $bulan = 'Desember';
     }
     return $bulan;
+}
+
+function formatTanggal($tanggal): string
+{
+    return Carbon::parse($tanggal)->translatedFormat('d F Y');
+}
+
+function formatTanggalJam($tanggal): string
+{
+    return Carbon::parse($tanggal)->translatedFormat('d F Y H:i');
 }

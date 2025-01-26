@@ -123,44 +123,49 @@
         }
 
         function hapusPembayaran(id) {
-            Swal.fire({
-                title:"Apakah kamu yakin?",
-                text:"Menghapus pembayaran ini",
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                denyButtonText: `Batal`,
-                confirmButtonText: "Hapus"
-            }).then(function(t){
-                if (t.value) {
-                    $.ajax({
-                        url: '{{ route("hapusPembayaran") }}',
-                        method: 'GET',
-                        data: {
-                            id: id
-                        },
-                        success: function (res) {
-                            if (res.status) {
-                                Swal.fire({
-                                    title: "Berhasil",
-                                    text: "Pembayaran Berhasil dihapus",
-                                    icon: "success"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Gagal",
-                                    text: "Pembayaran Berhasil dihapus",
-                                    icon: "error"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
+            Notiflix.Confirm.show(
+                'Apakah kamu yakin?',
+                'Menghapus Pembayaran ini',
+                'Hapus',
+                'Batal',
+                () => {
+                    Notiflix.Loading.circle();
+                    setTimeout(() => {
+                        Notiflix.Loading.remove();
+                        $.ajax({
+                            url: '{{ route("hapusPembayaran") }}',
+                            method: 'GET',
+                            data: {
+                                id: id
+                            },
+                            success: function (res) {
+                                if (res.status) {
+                                    Notiflix.Report.success(
+                                        'Berhasil',
+                                        `Pembayaran berhasil dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                } else {
+                                    Notiflix.Report.success(
+                                        'Gagal',
+                                        `Pembayaran Gagal dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    });
+                        });
+                    }, 1000);
+                },
+                () => {
+                    $('#pilihan').modal('hide');
                 }
-            });
+            );
         }
     </script>
 </body>

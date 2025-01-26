@@ -124,44 +124,49 @@
         }
 
         function hapusParfum(id) {
-            Swal.fire({
-                title:"Apakah kamu yakin?",
-                text:"Menghapus parfum ini",
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                denyButtonText: `Batal`,
-                confirmButtonText: "Hapus"
-            }).then(function(t){
-                if (t.value) {
-                    $.ajax({
-                        url: '{{ route("hapusParfum") }}',
-                        method: 'GET',
-                        data: {
-                            id: id
-                        },
-                        success: function (res) {
-                            if (res.status) {
-                                Swal.fire({
-                                    title: "Berhasil",
-                                    text: "Parfum Berhasil dihapus",
-                                    icon: "success"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    title: "Gagal",
-                                    text: "Parfum Berhasil dihapus",
-                                    icon: "error"
-                                }).then(function (e) {
-                                    location.reload();
-                                });
+            Notiflix.Confirm.show(
+                'Apakah kamu yakin?',
+                'Menghapus Parfum ini',
+                'Hapus Parfum',
+                'Batal',
+                () => {
+                    Notiflix.Loading.circle();
+                    setTimeout(() => {
+                        Notiflix.Loading.remove();
+                        $.ajax({
+                            url: '{{ route("hapusParfum") }}',
+                            method: 'GET',
+                            data: {
+                                id: id
+                            },
+                            success: function (res) {
+                                if (res.status) {
+                                    Notiflix.Report.success(
+                                        'Berhasil',
+                                        `Parfum berhasil dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                } else {
+                                    Notiflix.Report.success(
+                                        'Gagal',
+                                        `Parfum Gagal dihapus`,
+                                        'Kembali',
+                                        () => {
+                                            location.reload();
+                                        }
+                                    );
+                                }
                             }
-                        }
-                    });
+                        });
+                    }, 1000);
+                },
+                () => {
+                    $('#pilihan').modal('hide');
                 }
-            });
+            );
         }
     </script>
 

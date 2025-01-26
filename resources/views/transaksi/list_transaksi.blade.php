@@ -576,45 +576,57 @@
 
     <script>
         function prosesTransaksi(id, status, orderNumber) {
-            Swal.fire({
-                title:"Apakah anda yakin?",
-                text:"Untuk memproses transaksi ini.",
-                icon:"warning",
-                showDenyButton: true,
-                showCancelButton: false,
-                confirmButtonText: "Proses Transaksi",
-                denyButtonText: "Kembali",
-            }).then(function(t){
-                if (t.value) {
+            Notiflix.Confirm.show(
+                'Apakah anda yakin?',
+                'Untuk memproses transaksi ini.',
+                'Proses Transaksi',
+                'Kembali',
+                () => {
+                    Notiflix.Loading.circle();
                     $.ajax({
                         url: `/proses-transaksi/${id}/${status}`,
                         method: "GET",
                         success: function (params) {
-                            if (params.status) {
-                                Swal.fire({
-                                    title:"Berhasil",
-                                    text: `Transaksi dengan order number ${orderNumber} telah diproses.`,
-                                    icon:"success",
-                                    showDenyButton: false,
-                                    showCancelButton: false,
-                                    confirmButtonText: "Kembali",
-                                }).then(function (res) {
-                                    location.replace('{{ route('transaksi') }}');
-                                });
-                            } else {
-                                Swal.fire({
-                                    title:"Gagal",
-                                    text: `Transaksi dengan order number ${orderNumber} gagal diproses.`,
-                                    icon:"error",
-                                    showDenyButton: false,
-                                    showCancelButton: false,
-                                    confirmButtonText: "Kembali",
-                                })
-                            }
+                            setTimeout(() => {
+                                Notiflix.Loading.remove();
+                                if (params.status) {
+                                    Notiflix.Report.success(
+                                        'Berhasil',
+                                        `Transaksi dengan order number ${orderNumber} telah diproses.`,
+                                        'Kembali',
+                                        () => {
+                                            location.replace('{{ route('transaksi') }}');
+                                        }
+                                    );
+                                } else {
+                                    Notiflix.Report.failure(
+                                        'Gagal',
+                                        `Transaksi dengan order number ${orderNumber} gagal diproses.`,
+                                        'Kembali'
+                                    );
+                                }
+                            }, 1000);
+                        },
+                        error: function () {
+                            setTimeout(() => {
+                                Notiflix.Loading.remove();
+                                Notiflix.Report.failure(
+                                    'Error',
+                                    'Terjadi kesalahan dalam memproses transaksi.',
+                                    'Kembali'
+                                );
+                            }, 2500);
                         }
                     });
+                },
+                () => {
+                    Notiflix.Report.info(
+                        'Dibatalkan',
+                        `Transaksi dengan order number ${orderNumber} tidak diproses.`,
+                        'Ya'
+                    );
                 }
-            });
+            );
         }
 
         function pilihan(orderNumber, id) {

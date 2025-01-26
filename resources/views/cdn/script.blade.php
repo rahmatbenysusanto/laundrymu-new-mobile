@@ -3,23 +3,35 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.53.0/apexcharts.min.js" integrity="sha512-QbaChpzUJcRVsOFtDhh/VZMuljqvlPRIhIXsvfREDZcdqzIKdNvAhwrgW+flSxtbxK/BFpdX1y5NSO6bSYHlOA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.6.min.js"></script>
+
+<script>
+    Notiflix.Report.init({
+        svgSize: '60px',
+        backOverlay: true,
+        backOverlayColor: '#000000',
+        cssAnimation: true,
+        cssAnimationDuration: 300,
+        cssAnimationStyle: 'fade',
+    });
+</script>
 
 @if ($message = Session::get('success'))
     <script>
-        Swal.fire({
-            title: "Berhasil",
-            text: "{{ $message }}",
-            icon: "success"
-        });
+        Notiflix.Report.success(
+            'Berhasil',
+            '{{ $message }}',
+            'Ya'
+        );
     </script>
 @endif
 
 @if ($message = Session::get('error'))
     <script>
-        Swal.fire({
-            title: "Gagal",
-            text: "{{ $message }}",
-            icon: "error"
-        });
+        Notiflix.Report.failure(
+            'Gagal',
+            '{{ $message }}',
+            'Ya'
+        );
     </script>
 @endif
