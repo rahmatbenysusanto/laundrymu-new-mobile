@@ -152,6 +152,16 @@
                                 @endif
                             </div>
                         </div>
+                        @if($pembayaran->status == "success")
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="tanggal">Waktu Pembayaran</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="text-value">{{ tanggal_jam_indo($pembayaran->updated_at) }}</p>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

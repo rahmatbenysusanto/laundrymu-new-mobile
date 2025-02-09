@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Carbon; @endphp
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,34 @@
     <title>Document</title>
     @include('cdn.head')
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <style>
+        .card {
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .notif-title {
+            color: #262626;
+            font-family: Gantari, serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px;
+            letter-spacing: -0.084px;
+        }
+
+        .notif-text {
+            color: #616161;
+            font-family: Gantari, serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: -0.176px;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,12 +62,19 @@
         <div class="container">
             <div class="row pt-1">
                 @foreach($notif as $n)
-                    <div class="col-12 pb-3">
-                        <div class="card card-white p-3">
-                            <h4>{{ $n->title }}</h4>
-                            <p>{{ $n->message }}</p>
+                    @php
+                        $timestampInMilliseconds = $n->created_at;
+                        $timestampInSeconds = $timestampInMilliseconds / 1000;
+                        $carbonTime = Carbon::createFromTimestamp($timestampInSeconds);
+                    @endphp
+                    <a href="/notification/detail/{{ $n->id }}">
+                        <div class="col-12 pb-2">
+                            <div class="card card-white p-2">
+                                <div class="notif-title">{{ $n->title }}</div>
+                                <div class="notif-text">{{ $n->type }} - {{ $carbonTime->diffForHumans() }}</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         </div>

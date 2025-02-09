@@ -25,7 +25,7 @@
                                 </svg>
                                 <div style="padding-left: 16px">
                                     <p class="laundry-name">{{ Session::get('toko')->nama }}</p>
-                                    <p class="reguler-text">Masa Aktif : {{ tanggal_indo(Session::get('toko')->expired) }}</p>
+                                    <p class="reguler-text">Masa Aktif : {{ formatTanggal($expired) }}</p>
                                 </div>
                             </div>
                             <i class="fa-regular fa-angle-right fa-lg" style="color: #ffffff;"></i>
@@ -272,7 +272,7 @@
                         <div class="card" style="padding: 16px; margin-top: 16px; border: none">
                             <p class="title-menu">Inventory</p>
                             <div class="list-menu">
-                                <a href="http://localhost:8001/inventory/list-pembelian" style="text-decoration: none">
+                                <a href="{{ route('listPembelian') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,7 +286,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/list-barang" style="text-decoration: none">
+                                <a href="{{ route('listBarang') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center" style="margin-bottom: 24px">
                                         <div>
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -298,7 +298,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="http://localhost:8001/list-penggunaan-barang" style="text-decoration: none">
+                                <a href="{{ route('listPenggunaan') }}" style="text-decoration: none">
                                     <div class="d-flex align-items-center">
                                         <div>
                                             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -307,6 +307,34 @@
                                         </div>
                                         <div>
                                             <p class="title-menu-sub">Penggunaan Barang</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="padding: 16px; margin-top: 16px; border: none">
+                            <p class="title-menu">Notifikasi</p>
+                            <div class="list-menu">
+                                <a href="http://localhost:8001/inventory/list-pembelian" style="text-decoration: none">
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.25 5.625H15.75L15 15.75H3L2.25 5.625Z" stroke="#262626" stroke-linejoin="round"></path>
+                                                <path d="M6 7.125V2.25H12V7.125" stroke="#262626" stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M6 12.75H12" stroke="#262626" stroke-linecap="round"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="title-menu-sub">WhatsApp</p>
                                         </div>
                                     </div>
                                 </a>

@@ -6,12 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Jenssegers\Agent\Agent;
 
 class AuthController extends Controller
 {
     public function index(): View
     {
-        return view('index');
+        $agent = new Agent();
+
+        if ($agent->isMobile()) {
+            return view('index');
+        } else {
+            return view('web.auth.login');
+        }
     }
 
     public function login(): View

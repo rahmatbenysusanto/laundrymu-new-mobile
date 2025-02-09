@@ -6,6 +6,15 @@
 <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-3.2.6.min.js"></script>
 
 <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+            .register('/service-worker.js')
+            .then(() => console.log("Service Worker Registered"))
+            .catch((error) => console.error("Service Worker Failed", error));
+    }
+</script>
+
+<script>
     Notiflix.Report.init({
         svgSize: '60px',
         backOverlay: true,

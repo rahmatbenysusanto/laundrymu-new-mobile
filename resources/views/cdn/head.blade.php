@@ -17,6 +17,8 @@
 
 <link href="{{ asset('assets/css/menu.css') }}" rel="stylesheet">
 
+<link rel="manifest" href="{{ asset('manifest.json') }}">
+
 <style>
     a {
         text-decoration: none;

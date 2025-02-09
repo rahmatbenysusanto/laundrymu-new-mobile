@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
@@ -17,11 +18,21 @@ class TransaksiController extends Controller
                 'baru', 'diproses', 'selesai'
             ]
         ]);
-        $dataTransaksiDiambil = $this->GET('api/transaksi/toko/'.Session::get('toko')->id.'/'.'diambil', []);
-        $transaksi = $dataTransaksi->data ?? [];
-        $transaksiDiambil = $dataTransaksiDiambil->data ?? [];
 
-        return view('transaksi.list_transaksi', compact('transaksi', 'transaksiDiambil'));
+        $transaksi = $dataTransaksi->data ?? [];
+
+        return view('transaksi.list_transaksi', compact('transaksi'));
+    }
+
+    public function listTransaksiDiambil(): \Illuminate\Http\JsonResponse
+    {
+        $result = DB::table('transaksi')
+            ->where('outlet_id', Session::get('toko')->id)
+            ->where('status', 'diambil')
+            ->orderBy('id', 'desc')
+            ->cursorPaginate(5);
+
+        return response()->json($result);
     }
 
     public function detail($orderNumber): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse
